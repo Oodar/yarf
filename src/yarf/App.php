@@ -41,9 +41,13 @@ class App
         }
     }
 
-    public function request(Request $req)
+    public function request($req)
     {
-        return false;
+        if($route = $this->router->map($req)) {
+            return $route->call($req);
+        } else {
+            // couldn't find a route, 404
+        }
     }
 
     public function getRoutes()
