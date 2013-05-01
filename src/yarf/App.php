@@ -9,6 +9,25 @@ class App
     function __construct()
     {
         $this->router = new Router();
+
+        // inject controller and model autoloaders
+        spl_autoload_register(function($className) {
+            if(!file_exists(__DIR__ . '/../controllers/' . $className . '.php')) {
+                return false;
+            } else {
+                require_once __DIR__ . '/../controllers/' . $className . '.php';
+                return true;
+            }
+        });
+
+        spl_autoload_register(function($className) {
+            if(!file_exists(__DIR__ . '/../models/' . $className . '.php')) {
+                return false;
+            } else {
+                require_once __DIR__ . '/../models/' . $className . '.php';
+                return true;
+            }
+        });
     }
 
     public function __call($name, array $args)
