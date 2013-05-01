@@ -41,8 +41,6 @@ class Router
             }
         }
 
-        if(!$matched) {
-            throw new \Exception('Unable to find matching route');
-        }
+        return $matched;
     }
 }

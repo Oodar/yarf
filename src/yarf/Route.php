@@ -17,8 +17,8 @@ class Route
         } else {
             $this->enforced = true;
         }
-
-        $this->methods = $methods;
+        
+        $this->methods = array_map('strtolower', $methods);
     }
 
     public function getUrl()
@@ -40,7 +40,7 @@ class Route
         } else {
             // can set the methods
             foreach ($args as $method) {
-                array_push($this->methods, $method);
+                array_push($this->methods, strtolower($method));
             }
         }
     }
@@ -48,7 +48,7 @@ class Route
     public function isMatch($req)
     {
         if($req->getUrl() == $this->url) {
-            if(in_array($req->getMethod(), $this->methods)) {
+            if(in_array(strtolower($req->getMethod()), $this->methods)) {
                 return true;
             } else {
                 return false;
@@ -63,7 +63,7 @@ class Route
         $this->mapping = $mapping;
     }
 
-    public function call()
+    public function call($req)
     {
         if(is_callable($this->mapping, false, $fnName)) {
             // call it
@@ -73,9 +73,13 @@ class Route
             $map = explode('#', $this->mapping);
 
             // check if it exists
-            if(file_exists(__DIR__ . "../controllers/" . $map[0])) {
+            if(file_exists(__DIR__ . "/../controllers/" . $map[0] . ".php")) {
+                // create the controller
                 $className = $map[0];
                 $controller = new $className;
+
+                // call the function
+                return call_user_func_array(array($controller, $map[1]), array());
             } else {
                 throw new \Exception('Controller code file does not exist');
             }
