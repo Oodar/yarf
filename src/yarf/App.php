@@ -41,12 +41,16 @@ class App
         }
     }
 
-    public function request($req)
+    public function run()
     {
+        // create request from server vars
+        $req = new http\Request($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
+
         if($route = $this->router->map($req)) {
             return $route->call($req);
         } else {
             // couldn't find a route, 404
+            die("Couldn't find a route");
         }
     }
 
