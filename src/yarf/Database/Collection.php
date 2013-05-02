@@ -67,4 +67,9 @@ class Collection
         array_push($this->models, $model);
     }
 
+    public function getModels()
+    {
+        return $this->models;
+    }
+
 }
