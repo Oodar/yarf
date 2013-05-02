@@ -7,10 +7,10 @@ class Request
     private $url;
     private $method;
 
-    function __construct($env)
+    function __construct($method, $url)
     {
-        $this->url = $env->getRequestUrl();
-        $this->method = $env->getRequestMethod();
+        $this->url = $url;
+        $this->method = $method;
     }
 
     public function getUrl()
