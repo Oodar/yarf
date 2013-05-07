@@ -42,14 +42,13 @@ class Example extends Controller
     // Mapped to PUT update
     public function updateById($id, $res)
     {
-        $this->respondTo('json', function($collection) {
-            echo json_encode($collection->getModels());
+        $this->respondTo('json', function($collection, $payload) {
+            echo $payload;
         });
 
-        $this->respondTo('html', function($collection) {
+        $this->respondTo('html', function($collection, $payload) {
             echo json_encode($collection->getModels());
         });
     }
 }
-
 ?>

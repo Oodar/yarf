@@ -24,6 +24,9 @@ class Controller
         $trace = debug_backtrace();
         $controller = $trace[1];
 
+        // get any payload data
+        $payload = $this->getPayload();
+
         if(!empty($controller['args']) && gettype($controller['args'][0]) == 'string' ) {
             $collection = $this->getCollection($controller['args'][0]);
         } else {
@@ -33,7 +36,7 @@ class Controller
         assert('is_callable($function)');
         if($this->matchesAcceptType($type)) {
             // call function
-            return call_user_func_array($function, array($collection));
+            return call_user_func_array($function, array($collection, $payload));
         } else {
             // don't call function
             return false;
@@ -70,11 +73,16 @@ class Controller
                 }
 
                 return $return;
-            }
+            }         
         }
 
         return false;
 
+    }
+
+    protected function getPayload()
+    {
+        return file_get_contents('php://input');
     }
 
     protected function matchesAcceptType($type)
