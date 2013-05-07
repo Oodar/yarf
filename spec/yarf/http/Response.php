@@ -23,4 +23,10 @@ class Response extends ObjectBehavior
         $this->getHeader('Content-Type')->shouldReturn('application/json');
     }
 
+    function it_is_sent_after_sending()
+    {
+        $this->send();
+        $this->isSent()->shouldReturn(true);
+    }
+
 }

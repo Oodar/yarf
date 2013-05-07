@@ -32,7 +32,7 @@ class ParamRoute extends Route
         }
     }
 
-    public function call($req)
+    public function call($req, &$res)
     {
         // if we get called here, we've already passed the test for urls matching, so there will be
         // a match in preg_match, assert just for safety
@@ -49,7 +49,7 @@ class ParamRoute extends Route
                 $controller = new $className;
 
                 // call the function
-                return call_user_func_array(array($controller, $map[1]), array($arg[1]));
+                return call_user_func_array(array($controller, $map[1]), array($arg[1], $res));
             } else {
                 throw new \Exception('Controller code file does not exist');
             }

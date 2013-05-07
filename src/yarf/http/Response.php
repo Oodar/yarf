@@ -18,9 +18,11 @@ class Response
     private $status;
     private $headers = array();
     private $body;
+    private $sent;
 
     function __construct()
     {
+        $this->sent = false;
     }
 
 
@@ -57,5 +59,21 @@ class Response
         foreach ($this->headers as $header => $value) {
             header($header . ': ' . $value);
         }
+    }
+
+    public function isSent()
+    {
+        return $this->sent;
+    }
+
+    public function send()
+    {
+        $this->sendHeaders();
+        $this->sent = true;
+    }
+
+    public function setBody($body)
+    {
+        $this->body = $body;
     }
 }

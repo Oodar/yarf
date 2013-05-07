@@ -24,7 +24,7 @@ class Controller
         $trace = debug_backtrace();
         $controller = $trace[1];
 
-        if(!empty($controller['args'])) {
+        if(!empty($controller['args']) && gettype($controller['args'][0]) == 'string' ) {
             $collection = $this->getCollection($controller['args'][0]);
         } else {
             $collection = $this->getCollection();

@@ -45,12 +45,18 @@ class App
     {
         // create request from server vars
         $req = new http\Request($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
+        $res = new http\Response();
 
         if($route = $this->router->map($req)) {
-            return $route->call($req);
+            return $route->call($req, $res);
         } else {
             // couldn't find a route, 404
-            die("Couldn't find a route");
+            $res->setResponseCode(404);
+        }
+
+        // if the controller hasn't sent the response, send it here
+        if(!$res->isSent()) {
+            $res->send();
         }
     }
 

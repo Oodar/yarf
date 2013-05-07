@@ -63,7 +63,7 @@ class Route
         $this->mapping = $mapping;
     }
 
-    public function call($req)
+    public function call($req, &$res)
     {
         if(is_callable($this->mapping, false, $fnName)) {
             // call it
@@ -79,7 +79,7 @@ class Route
                 $controller = new $className;
 
                 // call the function
-                return call_user_func_array(array($controller, $map[1]), array());
+                return call_user_func_array(array($controller, $map[1]), array($res));
             } else {
                 throw new \Exception('Controller code file does not exist');
             }
