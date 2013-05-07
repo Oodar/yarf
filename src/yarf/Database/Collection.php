@@ -41,7 +41,7 @@ class Collection
         foreach ($this->models as $model) 
         {
             $entry = array();
-            $attribs = array_keys($model); // actual model class will need to work with array_keys?
+            $attribs = array_keys($model); // actual model class will need to work with array_keys
 
             foreach ($attribs as $attrib) 
             {

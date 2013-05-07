@@ -13,7 +13,9 @@ $app->get('/')->to(function() {
 });
 
 $app->get('/example')->to('Example#collection');
+
 $app->get('/example/:id')->to('Example#collectionById');
+$app->put('/example/:id')->to('Example#updateById');
 
 $app->run();
 

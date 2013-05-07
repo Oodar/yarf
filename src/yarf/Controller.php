@@ -77,7 +77,7 @@ class Controller
 
     }
 
-    private function matchesAcceptType($type)
+    protected function matchesAcceptType($type)
     {
         $accept = $this->env->getAcceptedTypes();
 
