@@ -62,6 +62,11 @@ class Collection
         return $return;
     }
 
+    public function isEmpty()
+    {
+        return count($this->models) == 0;
+    }
+
     public function addModel($model)
     {
         array_push($this->models, $model);
