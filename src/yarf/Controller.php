@@ -53,21 +53,29 @@ class Controller
 
         $dbh = $this->env->getDatabaseHandle();
 
+
         $return = new Collection();
 
         if(!empty($args)) {
             $stmt = $dbh->prepare('SELECT * FROM ' . $table . ' WHERE id=?');
+
+            // set the fetch mode
+            $stmt->setFetchMode(\PDO::FETCH_CLASS, 'yarf\Database\Model');
+
             if($stmt->execute($args)) {
                 while($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
                     $return->addModel($row);
                 }
-
                 return $return;
-            }
-
+            } 
         } else {
             $stmt = $dbh->prepare('SELECT * FROM ' . $table);
+
+            // set the fetch mode
+            $stmt->setFetchMode(\PDO::FETCH_CLASS, 'yarf\Database\Model');
+
             if($stmt->execute()) {
+
                 while($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
                     $return->addModel($row);
                 }
