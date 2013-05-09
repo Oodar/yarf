@@ -43,7 +43,8 @@ class Example extends Controller
     public function updateById($id, $res)
     {
         $this->respondTo('json', function($collection, $payload) {
-            echo $payload;
+            $model = array_pop($collection->getModels());
+            echo $model->toJSON();
         });
 
         $this->respondTo('html', function($collection, $payload) {

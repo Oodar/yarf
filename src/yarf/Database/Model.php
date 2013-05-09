@@ -36,4 +36,9 @@ class Model implements \ArrayAccess
         return isset($this->props[$offset]);
     }
 
+    public function toJSON()
+    {
+        return json_encode($this->props);
+    }
+
 }

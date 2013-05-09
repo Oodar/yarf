@@ -63,7 +63,7 @@ class Controller
             $stmt->setFetchMode(\PDO::FETCH_CLASS, 'yarf\Database\Model');
 
             if($stmt->execute($args)) {
-                while($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+                while($row = $stmt->fetch()) {
                     $return->addModel($row);
                 }
                 return $return;
@@ -76,7 +76,7 @@ class Controller
 
             if($stmt->execute()) {
 
-                while($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+                while($row = $stmt->fetch()) {
                     $return->addModel($row);
                 }
 
