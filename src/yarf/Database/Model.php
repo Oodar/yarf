@@ -36,11 +36,15 @@ class Model implements \ArrayAccess
         return isset($this->props[$offset]);
     }
 
+    public function getKeys()
+    {
+        return array_keys($this->props);
+    }
+
     public function toJSON()
     {
         return json_encode($this->props);
     }
-
 
     public function hasUpdate($payload)
     {
