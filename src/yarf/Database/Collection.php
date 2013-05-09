@@ -16,19 +16,15 @@ class Collection
         $return = array();
 
         foreach ($this->models as $model) {
-            $entry = array();
-            foreach ($args as $filter) {
-                $entry[$filter] = $model[$filter];
-            }
 
-            if(empty($entry)) {
-                throw new \Exception("A model in the collection did not contain any of the filtered attributes");
-            }
+            $diff = array_diff($model->getKeys(), $args);
 
-            array_push($return, $entry);
+            foreach ($diff as $key) {
+                unset($model[$key]);
+            }
         }
 
-        return $return;
+        return $this;
     }
 
     public function except()
@@ -37,26 +33,16 @@ class Collection
         $return = array();
 
         foreach ($this->models as $model) {
-            $entry = array();
-            $attribs = $model->getKeys(); // actual model class will need to work with array_keys
 
-            foreach ($attribs as $attrib) {
+            $intersect = array_intersect($model->getKeys(), $args);
 
-                if(!in_array($attrib, $args)) {
-                    $entry[$attrib] = $model[$attrib];
-                } else {
-                    // it's in the array, don't want this attribute
-                }
+            foreach ($intersect as $key) {
+                unset($model[$key]);
             }
-
-            if(empty($entry)) {
-                throw new \Exception("A model in the collection filtered to empty using the except filter");
-            }
-
-            array_push($return, $entry);
+            
         }
 
-        return $return;
+        return $this;
     }
 
     public function isEmpty()
@@ -74,4 +60,14 @@ class Collection
         return $this->models;
     }
 
+    public function toJSON()
+    {
+        $col = array();
+
+        foreach ($this->models as $model) {
+            array_push($col, $model->toArray());
+        }
+
+        return json_encode($col);
+    }
 }

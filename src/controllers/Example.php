@@ -19,11 +19,10 @@ class Example extends Controller
     public function collection($res)
     {
         $this->respondTo('json', function($collection) {
-            echo json_encode($collection->getModels());
         });
 
         $this->respondTo('html', function($collection) {
-            echo json_encode($collection->getModels());
+            echo $collection->except('id', 'name')->toJSON();
         });
     }
 
