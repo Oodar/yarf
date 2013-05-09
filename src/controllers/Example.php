@@ -44,7 +44,11 @@ class Example extends Controller
     {
         $this->respondTo('json', function($collection, $payload) {
             $model = array_pop($collection->getModels());
-            echo $model->toJSON();
+            if($model->hasUpdate($payload)) {
+                echo json_encode(array("update" => "true"));
+            } else {
+                echo json_encode(array("update" => "false"));
+            }
         });
 
         $this->respondTo('html', function($collection, $payload) {

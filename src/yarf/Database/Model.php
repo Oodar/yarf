@@ -41,4 +41,13 @@ class Model implements \ArrayAccess
         return json_encode($this->props);
     }
 
+
+    public function hasUpdate($payload)
+    {
+        if(count(array_diff($payload, $this->props)) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -90,7 +90,8 @@ class Controller
 
     protected function getPayload()
     {
-        return file_get_contents('php://input');
+        // only support JSON at this time
+        return json_decode(file_get_contents('php://input'), true);
     }
 
     protected function matchesAcceptType($type)
