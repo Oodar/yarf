@@ -19,6 +19,7 @@ class Example extends Controller
     public function collection($res)
     {
         $this->respondTo('json', function($collection) {
+            echo $collection->except('id', 'name')->toJSON();
         });
 
         $this->respondTo('html', function($collection) {
@@ -30,11 +31,11 @@ class Example extends Controller
     public function collectionById($id, $res)
     {
         $this->respondTo('json', function($collection) {
-            echo json_encode($collection->getModels());
+            echo $collection->except('id')->toJSON();
         });
 
         $this->respondTo('html', function($collection) {
-            echo json_encode($collection->getModels());
+            echo $collection->except('id')->toJSON();
         });
     }
 
