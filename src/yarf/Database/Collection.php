@@ -15,11 +15,9 @@ class Collection
         $args = func_get_args();
         $return = array();
 
-        foreach ($this->models as $model) 
-        {
+        foreach ($this->models as $model) {
             $entry = array();
-            foreach ($args as $filter) 
-            {
+            foreach ($args as $filter) {
                 $entry[$filter] = $model[$filter];
             }
 
@@ -38,13 +36,12 @@ class Collection
         $args = func_get_args();
         $return = array();
 
-        foreach ($this->models as $model) 
-        {
+        foreach ($this->models as $model) {
             $entry = array();
             $attribs = $model->getKeys(); // actual model class will need to work with array_keys
 
-            foreach ($attribs as $attrib) 
-            {
+            foreach ($attribs as $attrib) {
+
                 if(!in_array($attrib, $args)) {
                     $entry[$attrib] = $model[$attrib];
                 } else {

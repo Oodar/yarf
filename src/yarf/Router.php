@@ -31,8 +31,8 @@ class Router
     {
         $matched = false;
 
-        foreach ($this->routes as $route) 
-        {
+        foreach ($this->routes as $route) {
+            
             if($route->isMatch($req)) {
                 $matched = true;
                 return $route;
